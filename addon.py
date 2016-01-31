@@ -1,5 +1,8 @@
 from xbmcswift2 import Plugin, xbmcgui
-from resources.lib import topdocos
+from resources.lib import thisweekscraper
+
+PLUGIN_URL = 'plugin://plugin.video.youtube/?action=play_video&videoid'
+SITE_URL = 'https://www.youtube.com/user/ThisWeekIn'
 
 plugin = Plugin()
 
@@ -10,35 +13,34 @@ def main_menu():
     items = [
         {
             'label': plugin.get_string(30000),
-            'path': plugin.url_for('videos'),
+            'path': plugin.url_for('get_latest'),
+            'thumbnail': 'http://ec-cdn-assets.stitcher.com/feedimagesplain328/9728.jpg',
         },
+        {
+            'label': plugin.get_string(30001),
+            'path': plugin.url_for('get_highlights')
+            'thumbnail': 'http://ec-cdn-assets.stitcher.com/feedimagesplain328/9728.jpg',
+        },
+        {
+            'label': plugin.get
     ]
     
     return items
 
 
-@plugin.route('/videos/')
-def get_videos():
+@plugin.route('/latest/')
+def get_latest():
     
+    keyword = 'Uploads' 
+    content = thisweekscraper.get_latest(SITE_URL, keyword)
     items = []
 
-    content = topdocos.get_section(SITE_URL, 'recently added')
-
     for i in content:
         items.append({
             'label': i['label'],
-            'path': plugin.url_for('play_content', url=i['path']),
+            'path': PLUGIN_URL + i['path'],
             'thumbnail': i['thumbnail'],
-        })
-
-    return items
-
-
-    content = topdocos.get_section(SITE_URL, 'highest rated')
-
-    for i in content:
-        items.append({
-            'label': i['label'],
+            'is_playable': True,
         })
 
     return items
