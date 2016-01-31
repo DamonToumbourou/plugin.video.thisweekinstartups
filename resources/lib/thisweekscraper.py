@@ -23,18 +23,12 @@ def get_latest(url, keyword):
             for k in link:
                 label_path = k.find('h3', {'class': 'yt-lockup-title '}).find('a')
                 label = label_path.get('title')
-                print 'label: '
-                print label
             
                 path = label_path.get('href')
                 path = re.search(r'\=(.*)', path).group(0)
-                print 'path: '
-                print path
                 
                 img = k.find('img')['data-thumb']
                 img = 'http:' + img 
-                print 'img: '
-                print img
 
                 item = {
                     'label': label,
@@ -45,4 +39,3 @@ def get_latest(url, keyword):
                 output.append(item)
 
     return output
-get_latest('https://www.youtube.com/user/ThisWeekIn', 'Uploads')

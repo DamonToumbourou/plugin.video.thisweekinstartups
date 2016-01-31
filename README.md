@@ -1,4 +1,4 @@
-Top Documentary Films Plugin for Kodi
+This Week in Startups Add-on for Kodi
 -------------------------------------------
 Watch This Week in Startups on Kodi. 
 
